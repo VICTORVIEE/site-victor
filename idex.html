@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surpresa de Aniversário</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            flex-direction: column;
+        }
+
+        .alert-page, .page, .congratulations, .thank-you-page {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            background-color: #333;
+            width: 80%;
+            max-width: 500px;
+            margin: 10px 0;
+        }
+
+        .alert-page h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .alert-page p {
+            font-size: 24px;
+            margin-bottom: 40px;
+        }
+
+        .alert-page button {
+            padding: 15px 30px;
+            font-size: 20px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .alert-page button:hover {
+            background-color: darkred;
+        }
+
+        .page h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .page button {
+            padding: 15px 30px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .page button:hover {
+            background-color: #45a049;
+        }
+
+        .message-top h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .congratulations {
+            background-color: #4CAF50;
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .confetti {
+            animation: confetti 3s linear infinite;
+        }
+
+        @keyframes confetti {
+            0% { transform: rotate(0deg) translate(0, 0); }
+            25% { transform: rotate(90deg) translate(10px, 10px); }
+            50% { transform: rotate(180deg) translate(-10px, -10px); }
+            75% { transform: rotate(270deg) translate(15px, -15px); }
+            100% { transform: rotate(360deg) translate(0, 0); }
+        }
+
+        .heart {
+            font-size: 60px;
+            color: red;
+            margin-top: 20px;
+        }
+
+        .victor-name {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ff5c5c;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .message-text {
+            font-size: 20px;
+            line-height: 1.5;
+            margin-top: 20px;
+        }
+
+        .thank-you-page {
+            max-height: 80vh;
+            overflow-y: auto;
+            padding-bottom: 20px;
+            background-color: #333;
+            color: white;
+        }
+
+        .thank-you-page h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #FFD700;
+            animation: fadeIn 3s ease-out;
+        }
+
+        .thank-you-page p {
+            font-size: 1.5rem;
+            line-height: 1.6;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        #message {
+            color: red;
+            font-weight: bold;
+            font-size: 24px;
+            display: none;
+        }
+
+        #erro2 {
+            color: red;
+            font-weight: bold;
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Página de alerta -->
+    <div id="alertPage" class="alert-page">
+        <h1>ALERTA DE SEGURANÇA!</h1>
+        <p>Seu dispositivo está infectado por vírus! <br> Para se livrar do vírus, insira a senha fornecida pelo lindo Victor:</p>
+        <input type="password" id="senha1" placeholder="Digite a senha">
+        <button onclick="checkPassword()">Confirmar</button>
+        <p id="erro1" style="display:none;"></p>
+    </div>
+
+    <!-- Página 1: Mensagem Inicial -->
+    <div id="page1" class="page" style="display: none;">
+        <h1>E aí, baiano? Era zoeira! Não tem vírus (eu acho 🤣)</h1>
+        <p>Este site foi criado por um cara lindo chamado Victor Rezende, <br>ele é seguro e contém privacidade. O desenvolvedor passou dias revisando para a experiência ser a melhor, então dê valor!</p>
+        <button onclick="redirectToPage('page2')">📍Já tô Aki Mozão</button>
+        <button onclick="showMessage()">📍Tô Fora</button>
+        <p id="message" style="color: red; font-weight: bold; display: none;">Ei fdp, tá maluco?</p>
+    </div>
+
+    <!-- Página 2: Código do coração -->
+    <div id="page2" class="page" style="display: none;">
+        <h1>Digite o código do meu coração:</h1>
+        <input type="password" id="senha2" placeholder="Código">
+        <button onclick="checkPassword2()">Entrar</button>
+        <p id="erro2" style="color:red; font-weight: bold; display:none;">Código incorreto. Tente novamente!</p>
+        <p id="dica2" style="font-size: 14px; color: lightgray;">Dica: São 6 dígitos com 2 combinações, as últimas combinações é um mês.</p>
+    </div>
+
+    <!-- Página 3: Parabéns -->
+    <div id="page3" class="congratulations" style="display: none;">
+        <h1>Parabéns Vitu Velozo! Você passou para a próxima e mais esperada página!</h1>
+        <p>Espero que curta, não sou um mestre na programação, mas fiz com muito carinho!</p>
+        <div class="confetti">🎉🎊</div>
+        <button onclick="redirectToPage('page4')">Continuar</button>
+    </div>
+
+    <!-- Página 4: Mensagem Especial -->
+    <div id="page4" class="page" style="display: none;">
+        <div class="message-top">
+            <h1>Mensagem Especial</h1>
+        </div>
+        <div class="message-text">
+            <p>Bem, Vitão, sei que isso de fazer site é muito clichê e informal, mas queria te mostrar que são as coisas mais simples que me pegam em você e me fazem querer demonstrar a imensidão do que sinto. Fiz esse pequeno projeto para, sempre que você se sentir perdido ou sozinho, poder visitar e saber que eu sempre vou estar aqui por nós. Não há palavras para descrever o quão orgulhoso estou de você. Isso não é nem um pouco do que eu pretendo te proporcionar um dia, e espero ter você lá na frente para, assim, poder lhe dar tudo aquilo que você merece. Eu te amo com a alma, Victor.</p>
+        </div>
+        <div class="heart">❤️</div>
+        <div class="victor-name">Victor Velozo</div>
+        <button onclick="redirectToPage('page5')">Ir para reflexão</button>
+    </div>
+
+    <!-- Página 5: Reflexão -->
+    <div id="page5" class="thank-you-page" style="display: none;">
+        <h1>Reflexão Final</h1>
+        <p>O que mais existe no mundo são pessoas que nunca vão se conhecer. Nasceram em um lugar distante, e o acaso não fará com que se cruzem. Um desperdício. Muitos desses encontros destinados a não acontecer poderiam ter sido arrebatadores. Por afinidade, por atração que não se explica, por força das circunstâncias, por químicas ocultas, quem pode saber? Quanto amor se perde nessa falta de sincronia. Não é preciso ir longe, alguém pode passar pela esquerda enquanto estamos olhando distraídos para a direita. Por um triz o paralelo nos obriga ao desencontro eterno. É preciso uma coincidência qualquer para que o amor se instale. Existe um certo milagre nos encontros. Não é tolo dizer que o amor é sagrado.</p>
+    </div>
+
+    <script>
+        let attempts = 0;  // Contador de tentativas para a senha
+
+        // Função para redirecionar entre páginas
+        function redirectToPage(pageId) {
+            // Ocultar todas as páginas
+            const pages = document.querySelectorAll(".page, .alert-page, .congratulations, .thank-you-page");
+            pages.forEach(page => page.style.display = "none");
+
+            // Exibir a página desejada
+            document.getElementById(pageId).style.display = "block";
+        }
+
+        // Função para verificar a senha da página de alerta
+        function checkPassword() {
+            const senha = document.getElementById("senha1").value;
+            if (senha === "020700") {
+                redirectToPage("page1");
+            } else {
+                document.getElementById("erro1").style.display = "block";
+            }
+        }
+
+        // Função para verificar a senha da segunda página
+        function checkPassword2() {
+            const senha = document.getElementById("senha2").value;
+            if (senha === "152109") {
+                redirectToPage("page3");
+            } else {
+                attempts++;
+                document.getElementById("erro2").style.display = "block";
+                if (attempts > 1) {
+                    document.getElementById("erro2").innerText = "Tá doidinho pra ficar solteiro né viadinho? Continua errando pra tu ver!";
+                }
+            }
+        }
+
+        // Função para exibir a mensagem quando clicar no "Tô Fora"
+        function showMessage() {
+            document.getElementById("message").style.display = "block";
+        }
+    </script>
+</body>
+</html>
